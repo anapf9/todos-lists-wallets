@@ -37,6 +37,7 @@
 
 import TarefaSalvar from './TarefaSalvar.vue'
 import TarefasListaIten from './TarefasListaIten.vue'
+import { mapState } from 'vuex'
 
 export default {
     components: {
@@ -47,12 +48,10 @@ export default {
         return {
             exibirFormulario: false,
             tarefaSelecionada: undefined,
-            tarefas: [
-                { id: 1, titulo: 'Aprender Vue', concluido: true },
-                { id: 2, titulo: 'Aprender Vue Router', concluido: true },
-                { id: 3, titulo: 'Aprender Vuex', concluido: false }
-            ]
         }
+    },
+    computed:{
+        ...mapState(['tarefas'])
     },
     methods: {
         exibirFormularioCriarTarefa(event) {
