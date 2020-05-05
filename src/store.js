@@ -11,5 +11,16 @@ export default new Vuex.Store ({
             { id: 2, titulo: 'Aprender Vue Router', concluido: true },
             { id: 3, titulo: 'Aprender Vuex', concluido: false }
         ],
+    },
+    // getters servem para realizarmos funções rapidas que poderam ser reutilizadas por todaa a aplicação
+    // funcionam como as compiuted propreties dos components, pois fazem um cache do resultadp retornado.
+    // o getter sera reexecutado quando a propriedade tarefas for alterada, como as computed propreties
+    getters: {
+        // tarefasConcluidas: (state) => {
+        //     return state.tarefas.filter(t => t.concluido)
+        // },
+        tarefasConcluidas: state => state.tarefas.filter(t => t.concluido),
+        tarefasAFazer: state => state.tarefas.filter(t => !t.concluido),
+        totalDeTarefasConcluidas: (state, getters) => getters.tarefasConcluidas.length
     }
 })
