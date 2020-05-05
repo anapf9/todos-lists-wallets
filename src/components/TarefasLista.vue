@@ -51,7 +51,7 @@
 
 import TarefaSalvar from './TarefaSalvar.vue'
 import TarefasListaIten from './TarefasListaIten.vue'
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 
 export default {
     components: {
@@ -72,26 +72,42 @@ export default {
             'totalDeTarefasConcluidas']),
     },
     created() {
-        this.$store.commit('listarTarefas', 
-            // o primeiro argumento do metodo comit é o nome do metodo
-            // o segundo argunento ẽ o payload
-            // [
-            //     { id: 1, titulo: 'Aprender Vue', concluido: true },
-            //     { id: 2, titulo: 'Aprender Vue Router', concluido: true },
-            //     { id: 3, titulo: 'Aprender Vuex', concluido: false }
-            // ]
-            // enviando como objeto temos a possibilidade de passar varias propriedades para dentro das mutations
-            {
-                tarefas: [
-                    { id: 1, titulo: 'Aprender Vue', concluido: true },
-                    { id: 2, titulo: 'Aprender Vue Router', concluido: true },
-                    { id: 3, titulo: 'Aprender Vuex', concluido: false }
-                ]  
-            }
-            )
-            // esse payload poderá ser recebido de um servidor ou de uma api, posso fazer uma função do axios q retorne o response.data
+        /* this.$store.commit('listarTarefas', 
+             // o primeiro argumento do metodo comit é o nome do metodo
+             // o segundo argunento ẽ o payload
+             // esse payload poderá ser recebido de um servidor ou de uma api, posso fazer uma função do axios q retorne o response.data
+             // [
+             //     { id: 1, titulo: 'Aprender Vue', concluido: true },
+             //     { id: 2, titulo: 'Aprender Vue Router', concluido: true },
+             //     { id: 3, titulo: 'Aprender Vuex', concluido: false }
+             // ]
+             // enviando como objeto temos a possibilidade de passar varias propriedades para dentro das mutations
+             {
+                 tarefas: [
+                     { id: 1, titulo: 'Aprender Vue', concluido: true },
+                     { id: 2, titulo: 'Aprender Vue Router', concluido: true },
+                     { id: 3, titulo: 'Aprender Vuex', concluido: false }
+                 ]  
+             }
+        )*/
+        //this.carregarTarefas({
+        this.listarTarefas({
+            tarefas: [
+                { id: 1, titulo: 'Aprender Vue', concluido: true },
+                { id: 2, titulo: 'Aprender Vue Router', concluido: true },
+                { id: 3, titulo: 'Aprender Vuex', concluido: false }
+            ] 
+        })
     },
     methods: {
+        ...mapMutations(['listarTarefas']),
+        /* ...mapMutations({
+            carregarTarefas: 'listarTarefas',
+            // a forma seguinte serve para caso se precise executar alguma logica antes de enviar o commit
+            listarTarefas: (commit, payload, options) => {
+                commit('listarTarefas', payload, options)
+            }
+        }),*/
         exibirFormularioCriarTarefa(event) {
             if (this.tarefaSelecionada) {
                 this.tarefaSelecionada = undefined
