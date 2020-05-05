@@ -16,14 +16,16 @@ export default {
             contadorLocal: 2
         }
     },
-    computed: mapState({
+    computed: {
+        ...mapState({
         contador: state => state.contador, // após a arrow function pode se utilizar qualquer lógica, porém retornaremos apenas o estado contador
         contador: 'contador', // atraves da string indicamos qual propriedade do state queremos pegar
         contadorAlias: 'contador', // forma como um alias, serve para darmos nome diferente
         contadorMultiplicado (state) {
             return state.contador * this.contadorLocal
         }
-    }), 
+    })
+    }, 
     methods: {
         incrementar() {
             this.$store.state.contador++

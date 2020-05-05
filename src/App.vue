@@ -15,15 +15,21 @@
       <contador />
     </div>
 
+    <div class="container">
+      <TarefasLista/>
+    </div>
+
   </div>
 </template>
 
 <script>
+import TarefasLista from './components/TarefasLista.vue'
 import FilmesLista from './components/FilmesLista.vue'
 import Contador from '@/components/Contador.vue'
 
 export default {
   components: {
+    TarefasLista,
     FilmesLista,
     Contador
   }
