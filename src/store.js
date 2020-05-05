@@ -6,11 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store ({
     state: {
         contador: 0,
-        tarefas: [
-            { id: 1, titulo: 'Aprender Vue', concluido: true },
-            { id: 2, titulo: 'Aprender Vue Router', concluido: true },
-            { id: 3, titulo: 'Aprender Vuex', concluido: false }
-        ],
+        tarefas: []
     },
     // getters servem para realizarmos funções rapidas que poderam ser reutilizadas por todaa a aplicação
     // funcionam como as compiuted propreties dos components, pois fazem um cache do resultadp retornado.
@@ -31,6 +27,14 @@ export default new Vuex.Store ({
         //     }
         // }
         buscarTarefaPorId: state => id => state.tarefas.find(t => t.id === id)
-        
+    },
+    mutations: {
+        listarTarefas: state => {
+            state.tarefas = [
+                { id: 1, titulo: 'Aprender Vue', concluido: true },
+                { id: 2, titulo: 'Aprender Vue Router', concluido: true },
+                { id: 3, titulo: 'Aprender Vuex', concluido: false }
+            ]
+        }
     }
 })
