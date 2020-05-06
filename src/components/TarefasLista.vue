@@ -98,13 +98,11 @@ export default {
                 { id: 3, titulo: 'Aprender Vuex', concluido: false }
             ] 
         }) */
-        this.$store.dispatch('listarTarefas', {
-            tarefas: [
-                { id: 1, titulo: 'Aprender Vue', concluido: true },
-                { id: 2, titulo: 'Aprender Vue Router', concluido: true },
-                { id: 3, titulo: 'Aprender Vuex', concluido: false }
-            ] 
-        } )
+        this.$store.dispatch('listarTarefas')
+        // quando não retornamos nem um valor da promise, então ela retorna void
+            .then(() => {
+                console.log('Actions executadas')
+            })
     },
     methods: {
         /* ...mapMutations({

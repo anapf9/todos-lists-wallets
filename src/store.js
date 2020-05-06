@@ -39,6 +39,17 @@ export default new Vuex.Store ({
         }
     },
     actions: {
+        buscarTarefas: (context, payload ) => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve([
+                        { id: 1, titulo: 'Aprender Vue', concluido: true },
+                        { id: 2, titulo: 'Aprender Vue Router', concluido: true },
+                        { id: 3, titulo: 'Aprender Vuex', concluido: false }
+                    ])
+                }, 2000)
+            })
+        },
         // dentro de uma action pode-se receber 2 parametros
         // o primeiro argumento recebe todas a propriedades e metodos que podemos acessar dentro de uma instancia do vuex.store
         // o segundo argumento (payload) que pode ser passado pra dentro da action
@@ -47,11 +58,17 @@ export default new Vuex.Store ({
             context.commit('listarTarefas', payload)
         }*/ 
         // exemplo de chamada assincrona
-        listarTarefas: ({ commit }, payload) => {
-            setTimeout(() => {
-                commit('listarTarefas', payload)
-                // commit('setarErro', error)
-            }, 2000)
-        }
+        listarTarefas: ({ commit, dispatch }, payload) => {
+            console.log('Action: listarTarefas')
+            return dispatch('buscarTarefas')
+            // como a action buscarTarefas retorna uma promise podemos usar o then
+            // no then, podemos passar um callback quando a promise for resolvida
+            // recebemos a lista de tarefas, pois estamos resolvendo a promisse com um array de tarefas
+                .then(tarefas => {
+                    console.log('Mutation: listarTarefas')
+                    commit('listarTarefas', { tarefas: tarefas })
+                })
+        },
+        //Ps: a ação listar tarefas esta chamando outra action que nos retorna uma promise, quando a promisse for resolvida, executamos o callback (recebemos a resposta) e então comitamos a mutation
     }
 })
