@@ -3,37 +3,23 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store ({
+const contadorModule = {
     state: {
-        contador: 0,
+        contador: 0
+    }
+}
+
+const tarefasModule = {
+    state: {
         tarefas: []
     },
-    // getters servem para realizarmos funções rapidas que poderam ser reutilizadas por todaa a aplicação
-    // funcionam como as compiuted propreties dos components, pois fazem um cache do resultadp retornado.
-    // o getter sera reexecutado quando a propriedade tarefas for alterada, como as computed propreties
     getters: {
-        // forma completa
-        // tarefasConcluidas: (state) => {
-        //     return state.tarefas.filter(t => t.concluido)
-        // },
         tarefasConcluidas: state => state.tarefas.filter(t => t.concluido),
         tarefasAFazer: state => state.tarefas.filter(t => !t.concluido),
         totalDeTarefasConcluidas: (state, getters) => getters.tarefasConcluidas.length,
-        // uma função dentro de outra função é uma closure
-        // forma completa
-        // buscarTarefaPorId: (state, getters) => {
-        //     return (id) => {
-        //         return state.tarefas.find(t => t.id === id)
-        //     }
-        // }
         buscarTarefaPorId: state => id => state.tarefas.find(t => t.id === id)
     },
     mutations: {
-        // forma mais completa
-        // listarTarefas: (state, payload) => {
-        //     state.tarefas = payload.tarefas
-        // }
-        // capturando as tarefas via desestruturação
         listarTarefas: (state, { tarefas }) => {
             state.tarefas = tarefas
         }
@@ -50,14 +36,6 @@ export default new Vuex.Store ({
                 }, 2000)
             })
         },
-        // dentro de uma action pode-se receber 2 parametros
-        // o primeiro argumento recebe todas a propriedades e metodos que podemos acessar dentro de uma instancia do vuex.store
-        // o segundo argumento (payload) que pode ser passado pra dentro da action
-        // forma completa
-        /* listarTarefas: (context, payload) => {
-            context.commit('listarTarefas', payload)
-        }*/ 
-        // exemplo de chamada assincrona
         listarTarefas: async ({ commit, dispatch }, payload) => {
             console.log('Action: listarTarefas')
             // usando async await: awai retorna uma promise e quando usando o await estamos falando para ele aguardar a execução da promise. Quando ela for resolvida, o resultado (o array de tarefas) será atribuido à constante tarefas
@@ -65,12 +43,17 @@ export default new Vuex.Store ({
             const tarefas = await dispatch('buscarTarefas')
             console.log('Mutation: listarTarefas')
             commit('listarTarefas', { tarefas: tarefas })
-            /* // como a action buscarTarefas retorna uma promise podemos usar o then
-            // no then, podemos passar um callback quando a promise for resolvida
-            // recebemos a lista de tarefas, pois estamos resolvendo a promisse com um array de tarefas
-                .then(tarefas => {
-                }) */
         }
-        //Ps: a ação listar tarefas esta chamando outra action que nos retorna uma promise, quando a promisse for resolvida, executamos o callback (recebemos a resposta) e então comitamos a mutation
+    }
+}
+
+const store = new Vuex.Store ({
+    modules: {
+        contador: contadorModule,
+        tarefas: tarefasModule
     }
 })
+
+console.log('Store', store)
+
+export default store

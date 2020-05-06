@@ -18,20 +18,20 @@ export default {
     },
     computed: {
         ...mapState({
-        contador: state => state.contador, // após a arrow function pode se utilizar qualquer lógica, porém retornaremos apenas o estado contador
-        contador: 'contador', // atraves da string indicamos qual propriedade do state queremos pegar
-        contadorAlias: 'contador', // forma como um alias, serve para darmos nome diferente
+        contador: state => state.contador.contador, // após a arrow function pode se utilizar qualquer lógica, porém retornaremos apenas o estado contador
+        // contador: 'contador', // atraves da string indicamos qual propriedade do state queremos pegar
+        contadorAlias: state => state.contador.contador, // forma como um alias, serve para darmos nome diferente
         contadorMultiplicado (state) {
-            return state.contador * this.contadorLocal
+            return state.contador.contador * this.contadorLocal
         }
     })
     }, 
     methods: {
         incrementar() {
-            this.$store.state.contador++
+            this.$store.state.contador.contador++
         },
         decrementar() {
-            this.$store.state.contador--
+            this.$store.state.contador.contador--
         }
     }
 }
