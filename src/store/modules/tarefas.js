@@ -13,7 +13,18 @@ export default {
     mutations: {
         listarTarefas: (state, { tarefas }) => {
             state.tarefas = tarefas
-        }
+        },
+        criarTarefa: ( state, { tarefa } ) => {
+            state.tarefas.push(tarefa)
+        },
+        editarTarefa: ( state, { tarefa }) => {
+            const indice = state.tarefas.findIndex(t => t.id === tarefa.id)
+            state.tarefas.splice( indice, 1, tarefa )
+        },
+        deletarTarefa: ( state, { tarefa }) => {
+            const indice = state.tarefas.findIndex(t => t.id === tarefa.id)
+            state.tarefas.splice( indice, 1)
+        },
     },
     actions: {
         buscarTarefas: (context, payload ) => {
