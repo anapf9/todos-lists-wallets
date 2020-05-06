@@ -37,5 +37,13 @@ export default new Vuex.Store ({
         listarTarefas: (state, { tarefas }) => {
             state.tarefas = tarefas
         }
+    },
+    actions: {
+        // dentro de uma action pode-se receber 2 parametros
+        // o primeiro argumento recebe todas a propriedades e metodos que podemos acessar dentro de uma instancia do vuex.store
+        // o segundo argumento (payload) que pode ser passado pra dentro da action
+        listarTarefas: (context, payload) => {
+            context.commit('listarTarefas', payload)
+        }
     }
 })

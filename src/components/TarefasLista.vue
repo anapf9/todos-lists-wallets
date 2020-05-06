@@ -51,7 +51,7 @@
 
 import TarefaSalvar from './TarefaSalvar.vue'
 import TarefasListaIten from './TarefasListaIten.vue'
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
     components: {
@@ -91,16 +91,22 @@ export default {
              }
         )*/
         //this.carregarTarefas({
-        this.listarTarefas({
+        /* this.listarTarefas({
             tarefas: [
                 { id: 1, titulo: 'Aprender Vue', concluido: true },
                 { id: 2, titulo: 'Aprender Vue Router', concluido: true },
                 { id: 3, titulo: 'Aprender Vuex', concluido: false }
             ] 
-        })
+        }) */
+        this.$store.dispatch('listarTarefas', {
+            tarefas: [
+                { id: 1, titulo: 'Aprender Vue', concluido: true },
+                { id: 2, titulo: 'Aprender Vue Router', concluido: true },
+                { id: 3, titulo: 'Aprender Vuex', concluido: false }
+            ] 
+        } )
     },
     methods: {
-        ...mapMutations(['listarTarefas']),
         /* ...mapMutations({
             carregarTarefas: 'listarTarefas',
             // a forma seguinte serve para caso se precise executar alguma logica antes de enviar o commit
