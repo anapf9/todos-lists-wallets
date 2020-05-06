@@ -70,13 +70,15 @@ export default {
         ...mapGetters([
             'tarefasAFazer',
             'tarefasConcluidas', 
-            'totalDeTarefasConcluidas']),
+            'totalDeTarefasConcluidas',
+            'boasVindas']),
     },
     created() {
         this.listarTarefas()
             .then(() => {
                 console.log('Actions executadas')
             })
+        console.log('Boas Vindas: ', this.boasVindas)
     },
     methods: {
         ...mapActions({

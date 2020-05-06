@@ -25,7 +25,14 @@ const tarefasModule = {
         },
         tarefasAFazer: state => state.tarefas.filter(t => !t.concluido),
         totalDeTarefasConcluidas: (state, getters) => getters.tarefasConcluidas.length,
-        buscarTarefaPorId: state => id => state.tarefas.find(t => t.id === id)
+        buscarTarefaPorId: state => id => state.tarefas.find(t => t.id === id),
+        boasVindas: (stata, getters, rootState, rootGetters ) => {
+            // state.tarefas */  a nivel global */ tarefas.tarefas
+            // getters.tarefasAFazer */  a nivel global */ 'tarefas/tarefasAFazer'
+            console.log('state global: ', rootState.usuario)
+            console.log('Getter global: ', rootGetters.mensagemDeBoasVindas)
+            return rootGetters.mensagemDeBoasVindas
+        }
     },
     mutations: {
         listarTarefas: (state, { tarefas }) => {
@@ -59,6 +66,9 @@ const tarefasModule = {
 const store = new Vuex.Store ({
     state: {
         usuario: 'Ana Fonseca'
+    },
+    getters: {
+        mensagemDeBoasVindas: state => `Olá ${state.usuario}`
     },
     modules: {
         contador: contadorModule,
