@@ -1,3 +1,5 @@
+import TarefasService from './../../services/axios'
+
 export default {
     namespaced: true,
     state: {
@@ -27,7 +29,7 @@ export default {
         },
     },
     actions: {
-        buscarTarefas: (context, payload ) => {
+       /*  buscarTarefas: (context, payload ) => {
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
                     resolve([
@@ -37,11 +39,25 @@ export default {
                     ])
                 }, 2000)
             })
+        }, */
+        //  payload vai ser buscado na api por meio do serviço
+        listarTarefas: async ({ commit }) => {
+            const response = await TarefasService.getTarefas()
+            commit('listarTarefas', { tarefas: response.data })
         },
-        listarTarefas: async ({ commit, dispatch, state, rootState, getters, rootGetters }, payload) => {
-            const tarefas = await dispatch('buscarTarefas')
-            commit('listarTarefas', { tarefas: tarefas })
-            dispatch('logar', 'Ana e Lorena', { root: true})
+        criarTarefa: ({ commit }, { tarefa }) => {
+            return TarefasService.postTarefa(tarefa)
+                .then(response => {
+                    commit('criasTarefa', { tarefa: response.data })
+                })
+        },
+        editarTarefa: async ({ commit }, { tarefa }) => {
+            const response = await TarefasService.putTarefa(tarefa)
+            commit('editarTarefa'), { tarefas: response.data }
+        },
+        deletarTarefa: async ({ commit }, { tarefa }) => {
+            const response = await TarefasService.deleteTarefa(tarefa.id)
+            commit('deletarTarefa', { tarefa })
         }
-    }
+    } 
 }
