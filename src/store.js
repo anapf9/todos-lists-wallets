@@ -42,8 +42,16 @@ export default new Vuex.Store ({
         // dentro de uma action pode-se receber 2 parametros
         // o primeiro argumento recebe todas a propriedades e metodos que podemos acessar dentro de uma instancia do vuex.store
         // o segundo argumento (payload) que pode ser passado pra dentro da action
-        listarTarefas: (context, payload) => {
+        // forma completa
+        /* listarTarefas: (context, payload) => {
             context.commit('listarTarefas', payload)
+        }*/ 
+        // exemplo de chamada assincrona
+        listarTarefas: ({ commit }, payload) => {
+            setTimeout(() => {
+                commit('listarTarefas', payload)
+                // commit('setarErro', error)
+            }, 2000)
         }
     }
 })
