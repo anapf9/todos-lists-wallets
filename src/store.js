@@ -14,7 +14,10 @@ const tarefasModule = {
         tarefas: []
     },
     getters: {
-        tarefasConcluidas: state => state.tarefas.filter(t => t.concluido),
+        tarefasConcluidas: (state, getters, rootState, rootGetters) => {
+            console.log('Getters: state', state, rootState)
+            return state.tarefas.filter(t => t.concluido)  
+        },
         tarefasAFazer: state => state.tarefas.filter(t => !t.concluido),
         totalDeTarefasConcluidas: (state, getters) => getters.tarefasConcluidas.length,
         buscarTarefaPorId: state => id => state.tarefas.find(t => t.id === id)
@@ -36,18 +39,22 @@ const tarefasModule = {
                 }, 2000)
             })
         },
-        listarTarefas: async ({ commit, dispatch }, payload) => {
+        listarTarefas: async ({ commit, dispatch, state, rootState, getters, rootGetters }, payload) => {
             console.log('Action: listarTarefas')
             // usando async await: awai retorna uma promise e quando usando o await estamos falando para ele aguardar a execução da promise. Quando ela for resolvida, o resultado (o array de tarefas) será atribuido à constante tarefas
             // usando async/awai é mais parecido com a função sincrona
             const tarefas = await dispatch('buscarTarefas')
             console.log('Mutation: listarTarefas')
             commit('listarTarefas', { tarefas: tarefas })
+            console.log('Actions: state', state, rootState)
         }
     }
 }
 
 const store = new Vuex.Store ({
+    state: {
+        usuario: 'Ana Fonseca'
+    },
     modules: {
         contador: contadorModule,
         tarefas: tarefasModule
