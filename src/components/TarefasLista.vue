@@ -73,12 +73,14 @@ export default {
             'totalDeTarefasConcluidas',
             'boasVindas']),
     },
-    created() {
-        this.listarTarefas()
+    async created() {
+        console.log('Usuario Atual: ', this.boasVindas)
+        await this.listarTarefas()
             .then(() => {
                 console.log('Actions executadas')
             })
         console.log('Boas Vindas: ', this.boasVindas)
+        console.log('Usuario Atual: ', this.boasVindas)
     },
     methods: {
         ...mapActions({
