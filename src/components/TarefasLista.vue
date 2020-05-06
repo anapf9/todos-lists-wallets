@@ -71,46 +71,12 @@ export default {
             'totalDeTarefasConcluidas']),
     },
     created() {
-        /* this.$store.commit('listarTarefas', 
-             // o primeiro argumento do metodo comit é o nome do metodo
-             // o segundo argunento ẽ o payload
-             // esse payload poderá ser recebido de um servidor ou de uma api, posso fazer uma função do axios q retorne o response.data
-             // [
-             //     { id: 1, titulo: 'Aprender Vue', concluido: true },
-             //     { id: 2, titulo: 'Aprender Vue Router', concluido: true },
-             //     { id: 3, titulo: 'Aprender Vuex', concluido: false }
-             // ]
-             // enviando como objeto temos a possibilidade de passar varias propriedades para dentro das mutations
-             {
-                 tarefas: [
-                     { id: 1, titulo: 'Aprender Vue', concluido: true },
-                     { id: 2, titulo: 'Aprender Vue Router', concluido: true },
-                     { id: 3, titulo: 'Aprender Vuex', concluido: false }
-                 ]  
-             }
-        )*/
-        //this.carregarTarefas({
-        /* this.listarTarefas({
-            tarefas: [
-                { id: 1, titulo: 'Aprender Vue', concluido: true },
-                { id: 2, titulo: 'Aprender Vue Router', concluido: true },
-                { id: 3, titulo: 'Aprender Vuex', concluido: false }
-            ] 
-        }) */
         this.listarTarefas()
-        // quando não retornamos nem um valor da promise, então ela retorna void
             .then(() => {
                 console.log('Actions executadas')
             })
     },
     methods: {
-        /* ...mapMutations({
-            carregarTarefas: 'listarTarefas',
-            // a forma seguinte serve para caso se precise executar alguma logica antes de enviar o commit
-            listarTarefas: (commit, payload, options) => {
-                commit('listarTarefas', payload, options)
-            }
-        }),*/
         ...mapActions({
             carregarTarefas: 'listarTarefas',
             listarTarefas: (dispatch, payload, options) => {

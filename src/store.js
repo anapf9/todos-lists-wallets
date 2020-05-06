@@ -58,17 +58,19 @@ export default new Vuex.Store ({
             context.commit('listarTarefas', payload)
         }*/ 
         // exemplo de chamada assincrona
-        listarTarefas: ({ commit, dispatch }, payload) => {
+        listarTarefas: async ({ commit, dispatch }, payload) => {
             console.log('Action: listarTarefas')
-            return dispatch('buscarTarefas')
-            // como a action buscarTarefas retorna uma promise podemos usar o then
+            // usando async await: awai retorna uma promise e quando usando o await estamos falando para ele aguardar a execução da promise. Quando ela for resolvida, o resultado (o array de tarefas) será atribuido à constante tarefas
+            // usando async/awai é mais parecido com a função sincrona
+            const tarefas = await dispatch('buscarTarefas')
+            console.log('Mutation: listarTarefas')
+            commit('listarTarefas', { tarefas: tarefas })
+            /* // como a action buscarTarefas retorna uma promise podemos usar o then
             // no then, podemos passar um callback quando a promise for resolvida
             // recebemos a lista de tarefas, pois estamos resolvendo a promisse com um array de tarefas
                 .then(tarefas => {
-                    console.log('Mutation: listarTarefas')
-                    commit('listarTarefas', { tarefas: tarefas })
-                })
-        },
+                }) */
+        }
         //Ps: a ação listar tarefas esta chamando outra action que nos retorna uma promise, quando a promisse for resolvida, executamos o callback (recebemos a resposta) e então comitamos a mutation
     }
 })
