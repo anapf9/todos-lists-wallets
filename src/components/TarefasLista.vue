@@ -48,10 +48,9 @@
 </template>
 
 <script>
-
 import TarefaSalvar from './TarefaSalvar.vue'
 import TarefasListaIten from './TarefasListaIten.vue'
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
     components: {
@@ -98,7 +97,7 @@ export default {
                 { id: 3, titulo: 'Aprender Vuex', concluido: false }
             ] 
         }) */
-        this.$store.dispatch('listarTarefas')
+        this.listarTarefas()
         // quando não retornamos nem um valor da promise, então ela retorna void
             .then(() => {
                 console.log('Actions executadas')
@@ -112,6 +111,12 @@ export default {
                 commit('listarTarefas', payload, options)
             }
         }),*/
+        ...mapActions({
+            carregarTarefas: 'listarTarefas',
+            listarTarefas: (dispatch, payload, options) => {
+                return dispatch('listarTarefas', payload, options)
+            }
+        }),
         exibirFormularioCriarTarefa(event) {
             if (this.tarefaSelecionada) {
                 this.tarefaSelecionada = undefined
