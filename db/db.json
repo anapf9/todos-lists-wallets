@@ -7,8 +7,18 @@
     },
     {
       "id": 3,
-      "titulo": "Aprender Vuex",
-      "concluido": false
+      "titulo": "Aprender Vuex amanha de novo",
+      "concluido": true
+    },
+    {
+      "titulo": "uma nova tarefa de amanha",
+      "concluido": true,
+      "id": 4
+    },
+    {
+      "titulo": "uma outra",
+      "concluido": true,
+      "id": 5
     }
   ]
 }

@@ -46,7 +46,7 @@ export default {
         criarTarefa: ({ commit }, { tarefa }) => {
             return TarefasService.postTarefa(tarefa)
             .then(response => {
-                commit('criasTarefa', { tarefa: response.data })
+                commit('criarTarefa', { tarefa: response.data })
             })
         },
         editarTarefa: async ({ commit }, { tarefa }) => {

@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <div class="row">
             <div class="col-sm-10">
                 <h1 class="font-weight-light">Lista de Tarefas</h1>
@@ -47,8 +46,9 @@
         <p v-else>Nenhuma tarefa foi concluida</p>
 
         <TarefaSalvar
-            v-if="exibirFormulario"
-            :tarefa="tarefaSelecionada" />
+            v-if="exibirFormulario" 
+            @salvar="salvarTarefa"
+            />
 
     </div>
 </template>
@@ -86,6 +86,8 @@ export default {
     methods: {
         ...mapActions([
             'concluirTarefa', // this.concluirTarefa( tarefa: {})
+            'criarTarefa',
+            'editarTarefa',
             'listarTarefas',
             'deletarTarefa',
             'selecionarTarefa',
@@ -111,6 +113,16 @@ export default {
         resetar() {
             this.exibirFormulario = false
             this.resetarTarefaSelecionada()
+        },
+        async salvarTarefa (event) {
+            switch (event.operacao) {
+                case 'criar':
+                    await this.criarTarefa({ tarefa: event.tarefa })
+                    break;""
+                case 'editar':
+                    await this.editarTarefa({ tarefa: event.tarefa })
+            }
+            this.resetar()
         }
     }
 }
