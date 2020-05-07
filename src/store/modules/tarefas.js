@@ -54,8 +54,7 @@ export default {
         },
         editarTarefa: async ({ commit }, { tarefa }) => {
             const response = await TarefasService.putTarefa(tarefa)
-            console.log('response', response)
-            commit('editarTarefa'), { tarefa: response.data }
+            commit('editarTarefa', { tarefa: response.data })
         },
         deletarTarefa: async ({ commit }, { tarefa }) => {
             const response = await TarefasService.deleteTarefa(tarefa.id)
