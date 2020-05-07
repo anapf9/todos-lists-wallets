@@ -7,7 +7,7 @@ import tarefas from './modules/tarefas'
 Vue.use(Vuex)
 
 export default new Vuex.Store ({
-    strict: process.env.Node_ENV !== 'production',
+    // strict: process.env.Node_ENV !== 'production',
     state: {
         usuario: 'Ana'
     },

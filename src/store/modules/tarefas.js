@@ -29,35 +29,35 @@ export default {
         },
     },
     actions: {
-       /*  buscarTarefas: (context, payload ) => {
-            return new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    resolve([
-                        { id: 1, titulo: 'Aprender Vue', concluido: true },
-                        { id: 2, titulo: 'Aprender Vue Router', concluido: true },
-                        { id: 3, titulo: 'Aprender Vuex', concluido: false }
-                    ])
-                }, 2000)
-            })
-        }, */
-        //  payload vai ser buscado na api por meio do serviço
-        listarTarefas: async ({ commit }) => {
-            const response = await TarefasService.getTarefas()
-            commit('listarTarefas', { tarefas: response.data })
+        // usamos o dispatch para a action disparar outra action
+        concluirTarefa: async ({ dispatch }, payload ) => {
+            // Usamos o object.assing para criar uma nova referencia de memoria pois a tarefa recebida no payload tem como referencia o state do modulo de tarefas
+            // para fazer a alteraçãp necessária precisaremos de uma nova referencia
+            const tarefa = Object.assign({}, payload.tarefa)
+            // essa forma para se fazer alterações sem causar mutações no state fora das mutations
+            tarefa.concluido = !tarefa.concluido
+            dispatch('editarTarefa', { tarefa })
+            console.log('tarefa', tarefa)
         },
         criarTarefa: ({ commit }, { tarefa }) => {
             return TarefasService.postTarefa(tarefa)
-                .then(response => {
-                    commit('criasTarefa', { tarefa: response.data })
-                })
+            .then(response => {
+                commit('criasTarefa', { tarefa: response.data })
+            })
         },
         editarTarefa: async ({ commit }, { tarefa }) => {
             const response = await TarefasService.putTarefa(tarefa)
-            commit('editarTarefa'), { tarefas: response.data }
+            console.log('response', response)
+            commit('editarTarefa'), { tarefa: response.data }
         },
         deletarTarefa: async ({ commit }, { tarefa }) => {
             const response = await TarefasService.deleteTarefa(tarefa.id)
             commit('deletarTarefa', { tarefa })
+        },
+        //  payload vai ser buscado na api por meio do serviço
+        listarTarefas: async ({ commit }) => {
+            const response = await TarefasService.getTarefas()
+            commit('listarTarefas', { tarefas: response.data })
         }
     } 
 }

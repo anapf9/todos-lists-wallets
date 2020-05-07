@@ -23,7 +23,10 @@
                 v-for="tarefa in tarefasAFazer"
                 :key="tarefa.id"
                 :tarefa="tarefa"
-                @editar="selecionarTarefaParaEdicao" />
+                @editar="selecionarTarefaParaEdicao" 
+                @concluir="concluirTarefa({tarefa: $event})" 
+                @deletar="confirmarRemocaoDaTarefa" 
+                />
         </ul>
 
         <p v-else>Nenhuma tarefa a fazer</p>
@@ -35,7 +38,10 @@
                 v-for="tarefa in tarefasConcluidas"
                 :key="tarefa.id"
                 :tarefa="tarefa"
-                @editar="selecionarTarefaParaEdicao" />
+                @editar="selecionarTarefaParaEdicao" 
+                @concluir="concluirTarefa({tarefa: $event})" 
+                @deletar="confirmarRemocaoDaTarefa" 
+                />
         </ul>
 
         <p v-else>Nenhuma tarefa foi concluida</p>
@@ -73,22 +79,22 @@ export default {
             'totalDeTarefasConcluidas',
             'boasVindas']),
     },
-    async created() {
-        console.log('Usuario Atual: ', this.boasVindas)
-        await this.listarTarefas()
-            .then(() => {
-                console.log('Actions executadas')
-            })
-        console.log('Boas Vindas: ', this.boasVindas)
-        console.log('Usuario Atual: ', this.boasVindas)
+    created() {
+        // register(this.$store)
+        this.listarTarefas()
     },
     methods: {
-        ...mapActions({
-            carregarTarefas: 'listarTarefas',
-            listarTarefas: (dispatch, payload, options) => {
-                return dispatch('listarTarefas', payload, options)
+        ...mapActions([
+            'concluirTarefa', // this.concluirTarefa( tarefa: {})
+            'listarTarefas',
+            'deletarTarefa'    // this
+        ]),
+        confirmarRemocaoDaTarefa (tarefa) {
+            const confirmar = window.confirm(`Deseja deletar a tarefa "${tarefa.titulo}"?`)
+            if (confirmar) {
+                this.deletarTarefa({ tarefa })
             }
-        }),
+        },
         exibirFormularioCriarTarefa(event) {
             if (this.tarefaSelecionada) {
                 this.tarefaSelecionada = undefined
