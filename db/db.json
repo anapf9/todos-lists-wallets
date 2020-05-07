@@ -3,21 +3,21 @@
     {
       "id": 1,
       "titulo": "Aprender Vue",
-      "concluido": false
+      "concluido": true
     },
     {
       "id": 3,
       "titulo": "Aprender Vuex amanha de novo",
-      "concluido": true
+      "concluido": false
     },
     {
       "titulo": "uma nova tarefa de amanha",
-      "concluido": true,
+      "concluido": false,
       "id": 4
     },
     {
-      "titulo": "uma outra",
-      "concluido": true,
+      "titulo": "2uma outra",
+      "concluido": false,
       "id": 5
     }
   ]

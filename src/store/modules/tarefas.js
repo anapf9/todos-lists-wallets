@@ -4,7 +4,8 @@ export default {
     namespaced: true,
     state: {
         tarefas: [],
-        tarefaSelecionada: undefined
+        tarefaSelecionada: undefined,
+        erro: undefined
     },
     getters: {
         tarefasConcluidas: (state) => state.tarefas.filter(t => t.concluido),
@@ -30,6 +31,9 @@ export default {
         },
         selecionarTarefa: ( state, { tarefa }) => {
             state.tarefaSelecionada = tarefa
+        },
+        setarErro: (state, { erro }) => {
+            state.erro = erro
         }
     },
     actions: {
@@ -45,9 +49,8 @@ export default {
         },
         criarTarefa: ({ commit }, { tarefa }) => {
             return TarefasService.postTarefa(tarefa)
-            .then(response => {
-                commit('criarTarefa', { tarefa: response.data })
-            })
+                .then(response => commit('criarTarefa', { tarefa: response.data }))
+                .catch(erro => commit('setarErro', { erro }))
         },
         editarTarefa: async ({ commit }, { tarefa }) => {
             const response = await TarefasService.putTarefa(tarefa)
@@ -60,8 +63,12 @@ export default {
         },
         //  payload vai ser buscado na api por meio do serviço
         listarTarefas: async ({ commit }) => {
-            const response = await TarefasService.getTarefas()
-            commit('listarTarefas', { tarefas: response.data })
+            try {
+                const response = await TarefasService.getTarefas()
+                commit('listarTarefas', { tarefas: response.data })
+            } catch(erro) {
+                commit('setarErro', { erro })
+            }
         },
         selecionarTarefa: ( { commit }, payload ) => {
             commit('selecionarTarefa', payload)
