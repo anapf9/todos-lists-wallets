@@ -3,7 +3,8 @@ import TarefasService from './../../services/axios'
 export default {
     namespaced: true,
     state: {
-        tarefas: []
+        tarefas: [],
+        tarefaSelecionada: undefined
     },
     getters: {
         tarefasConcluidas: (state) => state.tarefas.filter(t => t.concluido),
@@ -27,6 +28,9 @@ export default {
             const indice = state.tarefas.findIndex(t => t.id === tarefa.id)
             state.tarefas.splice( indice, 1)
         },
+        selecionarTarefa: ( state, { tarefa }) => {
+            state.tarefaSelecionada = tarefa
+        }
     },
     actions: {
         // usamos o dispatch para a action disparar outra action
@@ -58,6 +62,12 @@ export default {
         listarTarefas: async ({ commit }) => {
             const response = await TarefasService.getTarefas()
             commit('listarTarefas', { tarefas: response.data })
+        },
+        selecionarTarefa: ( { commit }, payload ) => {
+            commit('selecionarTarefa', payload)
+        },
+        resetarTarefaSelecionada: ({ commit }) => {
+            commit('selecionarTarefa', { tarefa: undefined})
         }
     } 
 }
