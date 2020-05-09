@@ -19,16 +19,22 @@
       <TarefasLista/>
     </div>
 
+    <div class="container">
+      <BankConfig/>
+    </div>
+
   </div>
 </template>
 
 <script>
+import BankConfig from './components/myTime/BankConfig.vue'
 import TarefasLista from './components/TarefasLista.vue'
 import FilmesLista from './components/FilmesLista.vue'
 import Contador from '@/components/Contador.vue'
 
 export default {
   components: {
+    BankConfig,
     TarefasLista,
     FilmesLista,
     Contador
