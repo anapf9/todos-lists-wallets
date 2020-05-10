@@ -14,12 +14,14 @@
                 <button 
                     class="btn btn-danger btn-sm mr-1" 
                     title="Deletar"
+                    @click="$emit('delete', account)"
                     >
                         <i class="fa fa-trash"></i>
                 </button>
                 <button 
                     class="btn btn-primary btn-sm mr-1" 
                     title="Editar"
+                    @click="$emit('edit', account)"
                     >
                         <i class="fa fa-pencil-alt"></i>
                 </button>
@@ -29,7 +31,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import currency from './../../currency'
 
 export default {
@@ -43,7 +44,6 @@ export default {
     computed: {
     },
     created() {
-        // this.showSymbol()
     },
     methods: {
         formatPrice (value) {

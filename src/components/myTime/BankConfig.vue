@@ -11,6 +11,8 @@
         <div class="d-flex flex-wrap my-3 ">
             <Card
                 :account="account"
+                @edit="edit"
+                @delete="deleteAccount"
                 v-for="(account, i) in accounts" :key="i" />
             <Modal
                 v-if="showModal" 
@@ -23,7 +25,7 @@
 import Card from './Card'
 import Modal from './Modal'
 import { createNamespacedHelpers } from 'vuex'
-const { mapGetters, mapState, mapActions } = createNamespacedHelpers('accounts')
+const { mapState, mapActions } = createNamespacedHelpers('accounts')
 
 
 export default {
@@ -33,12 +35,12 @@ export default {
         Modal
     },
     data: () => ({
-        cards: 3,
         showModal: false
     }),
     computed: {
         ...mapState([
-            'accounts'
+            'accounts',
+            'accountSelected'
         ])
     },
     created () {
@@ -46,11 +48,24 @@ export default {
     },
     methods: {
         ...mapActions([
-            'getAccounts'
+            'getAccounts',
+            'editAccount',
+            'selectAccount',
+            'resetAccountSelected'
         ]),
         modal () {
-            console.log('toquei')
             this.showModal = !this.showModal
+        },
+        edit (account) {
+            this.showModal = true
+            this.selectAccount({ account })
+        },
+        resetAccount() {
+            this.modal = false
+            this.resetAccountSelected()
+        },
+        deleteAccount () {
+            console.log('deletei')
         }
     }
 

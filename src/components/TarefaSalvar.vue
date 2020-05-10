@@ -37,12 +37,6 @@
 import { mapState } from 'vuex';
 
 export default {
-    // props: {
-    //     tarefa: {
-    //         type: Object,
-    //         default: undefined
-    //     }
-    // },
     data () {
         return {
             tarefa: {}

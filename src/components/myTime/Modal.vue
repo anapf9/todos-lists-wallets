@@ -5,37 +5,42 @@
           <div class="modal-wrapper">
             <div class="modal-container">
 
-              <div class="modal-header">
-                <slot name="header">
-                  Configurações da sua Conta
-                </slot>
-              </div>
+              <form @submit.prevent="save">
 
-              <div class="modal-body">
-                <slot name="body">
-                    <div class="form-group">
-                        <label>Nome</label>
-                            <input v-model="selected.name" type="text" class="form-control" placeholder="Conta Teste">
-                        <label for="exampleFormControlSelect1">Moeda</label>
-                        <select v-model="selected.currency" class="form-control" id="exampleFormControlSelect1">
-                            <option v-for="(item, i) in currency" :key="i">{{item.iso}}</option>
-                        </select>
-                        <label>Valor</label>
-                        <input v-model="selected.balance" type="number" class="form-control" placeholder="R$ 1.000,00">
-                        <input v-model="selected.favorite" type="checkbox" class="form-check-input">
-                        <label class="form-check-label"> Favorito </label> 
-                    </div>
-                </slot>
-              </div>
+                <div class="modal-header">
+                  <slot name="header">
+                    Configurações da sua Conta
+                  </slot>
+                </div>
 
-              <div class="modal-footer">
-                <slot name="footer">
-                  default footer
-                  <button class="modal-default-button" @click="$emit('close')">
-                    OK
-                  </button>
-                </slot>
-              </div>
+                <div class="modal-body">
+                  <slot name="body">
+                      <div class="form-group">
+                          <label>Nome</label>
+                              <input v-model="account.name" type="text" class="form-control" placeholder="Conta Teste">
+                          <label for="exampleFormControlSelect1">Moeda</label>
+                          <select v-model="account.currency" class="form-control" id="exampleFormControlSelect1">
+                              <option v-for="(item, i) in currency" :key="i">{{item.iso}}</option>
+                          </select>
+                          <label>Valor</label>
+                          <input v-model="account.balance" type="number" class="form-control" placeholder="R$ 1.000,00">
+                          <input v-model="account.favorite" type="checkbox" class="form-check-input">
+                          <label class="form-check-label"> Favorito </label> 
+                      </div>
+                  </slot>
+                </div>
+
+                <div class="modal-footer">
+                  <slot name="footer">
+                    default footer
+                    <button type="submit" class="modal-default-button" @click="$emit('close')">
+                      Salvar
+                    </button>
+                  </slot>
+                </div>
+
+              </form>
+
             </div>
           </div>
         </div>
@@ -45,16 +50,45 @@
 
 <script>
 import currency from './../../currency'
+import { mapState } from 'vuex'
+
 export default {
     name: 'Modal',
-    /* props: {
-        showModal: Boolean
-    }, */
     data: () => ({
-      itens: 5,
       currency: currency.currency,
-      selected: {}
-    })
+      account: {}
+    }),
+    computed: {
+      ...mapState('accounts',[
+        'accountSelected'
+      ])
+    },
+    watch: {
+      accountSelected(newSelect, oldSelect) {
+        this.syncAccount(newSelect)
+      }
+    },
+    created () {
+      this.syncAccount(this.accountSelected)
+    }, 
+    methods: {
+      syncAccount(newSelect) {
+        this.account = Object.assign(
+          {},
+          newSelect || {
+            name: '',
+            currency: '',
+            balance: '',
+            favorite: ''
+          }
+        )
+      },
+      save (event) {
+        console.log('salvei')
+        let choice = !this.accountSelected ? 'new' : 'edit'
+        this.$emit('save', { choice, account: this.account})
+      }
+    }
 }
 </script>
 
