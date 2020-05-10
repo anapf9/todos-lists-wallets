@@ -15,5 +15,31 @@
       "concluido": true,
       "id": 5
     }
+  ],
+  "accounts": [
+    {
+      "name": "Carteira Teste",
+      "currency": "BRL",
+      "balance": "12345",
+      "favorite": true,
+      "color": "#34f",
+      "modification_time": "2020-04-30 15:25:24"
+    },
+    {
+      "name": "Carteira Teste 2",
+      "currency": "USD",
+      "balance": "1234567",
+      "favorite": false,
+      "color": "#0ef",
+      "modification_time": "2020-04-30 15:25:24"
+    },
+    {
+      "name": "Wallet 3",
+      "currency": "EUR",
+      "balance": "123",
+      "favorite": true,
+      "color": "#5d6",
+      "modification_time": "2020-04-30 15:25:24"
+    }
   ]
 }

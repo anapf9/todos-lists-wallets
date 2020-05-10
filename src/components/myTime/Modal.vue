@@ -7,13 +7,24 @@
 
               <div class="modal-header">
                 <slot name="header">
-                  default header
+                  Configurações da sua Conta
                 </slot>
               </div>
 
               <div class="modal-body">
                 <slot name="body">
-                  default body
+                    <div class="form-group">
+                        <label>Nome</label>
+                            <input v-model="selected.name" type="text" class="form-control" placeholder="Conta Teste">
+                        <label for="exampleFormControlSelect1">Moeda</label>
+                        <select v-model="selected.currency" class="form-control" id="exampleFormControlSelect1">
+                            <option v-for="(item, i) in currency" :key="i">{{item.iso}}</option>
+                        </select>
+                        <label>Valor</label>
+                        <input v-model="selected.balance" type="number" class="form-control" placeholder="R$ 1.000,00">
+                        <input v-model="selected.favorite" type="checkbox" class="form-check-input">
+                        <label class="form-check-label"> Favorito </label> 
+                    </div>
                 </slot>
               </div>
 
@@ -33,11 +44,17 @@
 </template>
 
 <script>
+import currency from './../../currency'
 export default {
     name: 'Modal',
-    props: {
+    /* props: {
         showModal: Boolean
-    }
+    }, */
+    data: () => ({
+      itens: 5,
+      currency: currency.currency,
+      selected: {}
+    })
 }
 </script>
 
