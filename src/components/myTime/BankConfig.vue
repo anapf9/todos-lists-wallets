@@ -9,8 +9,9 @@
             </button>
         </div>
         <div class="d-flex flex-wrap my-3 ">
-            <Card 
-                v-for="card in cards" :key="card" />
+            <Card
+                :account="account"
+                v-for="(account, i) in accounts" :key="i" />
             <Modal
                 v-if="showModal" 
                 @close="showModal = false" />
@@ -21,6 +22,10 @@
 <script>
 import Card from './Card'
 import Modal from './Modal'
+import { createNamespacedHelpers } from 'vuex'
+const { mapGetters, mapState, mapActions } = createNamespacedHelpers('accounts')
+
+
 export default {
     name: 'BankConfig',
     components: {
@@ -31,7 +36,18 @@ export default {
         cards: 3,
         showModal: false
     }),
+    computed: {
+        ...mapState([
+            'accounts'
+        ])
+    },
+    created () {
+        this.getAccounts()
+    },
     methods: {
+        ...mapActions([
+            'getAccounts'
+        ]),
         modal () {
             console.log('toquei')
             this.showModal = !this.showModal

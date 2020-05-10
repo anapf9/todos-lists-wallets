@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import contador from './modules/contador'
 import tarefas from './modules/tarefas'
+import accounts from './modules/accounts'
 
 Vue.use(Vuex)
 
@@ -26,6 +27,7 @@ export default new Vuex.Store ({
     },
     modules: {
         contador,
-        tarefas
+        tarefas,
+        accounts
     }
 })

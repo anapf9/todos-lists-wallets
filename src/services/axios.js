@@ -23,5 +23,21 @@ export default {
     },
     deleteTarefa (id) {
         return apiClient.delete(`/tarefas/${id}`)
+    },
+    // My time 
+    getAccounts () {
+        return apiClient.get('/accounts')
+    },
+    getAccount (id) {
+        return apiClient.get(`/accounts/${id}`)
+    },
+    postAccount (account) {
+        return apiClient.post('/accounts', account)
+    },
+    putAccount (account) {
+        return apiClient.put(`/accounts/${account.id}`, account)
+    },
+    deletAaccount (id) {
+        return apiClient.delete(`/accounts/${id}`)
     }
 }
