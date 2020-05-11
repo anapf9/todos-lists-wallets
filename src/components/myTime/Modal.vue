@@ -32,8 +32,10 @@
 
                 <div class="modal-footer">
                   <slot name="footer">
-                    default footer
-                    <button type="submit" class="modal-default-button" @click="$emit('close')">
+                    <button class="modal-default-button" @click="$emit('close')">
+                      fechar
+                    </button>
+                    <button type="submit" class="modal-default-button">
                       Salvar
                     </button>
                   </slot>
@@ -84,9 +86,8 @@ export default {
         )
       },
       save (event) {
-        console.log('salvei')
-        let choice = !this.accountSelected ? 'new' : 'edit'
-        this.$emit('save', { choice, account: this.account})
+        let chooise = !this.accountSelected ? 'new' : 'edit'
+        this.$emit('save', { chooise, account: this.account})
       }
     }
 }

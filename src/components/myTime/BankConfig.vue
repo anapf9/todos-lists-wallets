@@ -16,7 +16,8 @@
                 v-for="(account, i) in accounts" :key="i" />
             <Modal
                 v-if="showModal" 
-                @close="showModal = false" />
+                @close="showModal = false" 
+                @save="save"/>
         </div>
     </div>
 </template>
@@ -51,9 +52,14 @@ export default {
             'getAccounts',
             'editAccount',
             'selectAccount',
-            'resetAccountSelected'
+            'resetAccountSelected',
+            'newAccount',
         ]),
         modal () {
+            if (this.accountSelected) {
+                this.resetAccount()
+                return
+            }
             this.showModal = !this.showModal
         },
         edit (account) {
@@ -66,6 +72,20 @@ export default {
         },
         deleteAccount () {
             console.log('deletei')
+        },
+        async save (event) {
+            switch (event.chooise) {
+                case 'new':
+                    await this.newAccount({ account: event.account})
+                    this.showModal = false
+                    break;
+            
+                case 'edit':
+                    await this.editAccount({ account: event.account})
+                    this.showModal = false
+                    break;
+            }
+            this.resetAccount()
         }
     }
 
