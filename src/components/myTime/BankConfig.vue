@@ -12,7 +12,7 @@
             <Card
                 :account="account"
                 @edit="edit"
-                @delete="deleteAccount"
+                @delet="confirmDeleteAccount"
                 v-for="(account, i) in accounts" :key="i" />
             <Modal
                 v-if="showModal" 
@@ -54,6 +54,7 @@ export default {
             'selectAccount',
             'resetAccountSelected',
             'newAccount',
+            'deleteAccount'
         ]),
         modal () {
             if (this.accountSelected) {
@@ -63,6 +64,7 @@ export default {
             this.showModal = !this.showModal
         },
         edit (account) {
+            console.log('edit', account)
             this.showModal = true
             this.selectAccount({ account })
         },
@@ -70,8 +72,11 @@ export default {
             this.modal = false
             this.resetAccountSelected()
         },
-        deleteAccount () {
-            console.log('deletei')
+        confirmDeleteAccount (account) {
+            const confirmar = window.confirm(`Deseja deletar a conta "${account.name}"?`)
+            if (confirmar) {
+               this.deleteAccount({ account })
+            }
         },
         async save (event) {
             switch (event.chooise) {

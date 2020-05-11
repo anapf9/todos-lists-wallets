@@ -52,13 +52,15 @@
 
 <script>
 import currency from './../../currency'
+import moment from 'moment'
 import { mapState } from 'vuex'
 
 export default {
     name: 'Modal',
     data: () => ({
       currency: currency.currency,
-      account: {}
+      account: {},
+      today: moment().format('YYYY-MM-DD HH:MM:ss')
     }),
     computed: {
       ...mapState('accounts',[
@@ -72,6 +74,7 @@ export default {
     },
     created () {
       this.syncAccount(this.accountSelected)
+      console.log(this.today)
     }, 
     methods: {
       syncAccount(newSelect) {
@@ -81,7 +84,8 @@ export default {
             name: '',
             currency: '',
             balance: '',
-            favorite: ''
+            favorite: '',
+            modification_time: this.today
           }
         )
       },

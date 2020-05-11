@@ -23,6 +23,10 @@ export default {
         editAccount: (state, { account }) => {
             let indice = state.accounts.findIndex(i => i.id === account.id)
             state.accounts.splice(indice, 1, account)
+        },
+        deleteAccount: (state, { account }) => {
+            let indice = state.accounts.findIndex(i => i.id === account.id)
+            state.accounts.splice(indice, 1)
         }
     },
     actions: {
@@ -43,10 +47,12 @@ export default {
         },
         editAccount: async ({commit}, {account}) => {
             let response = await accountService.putAccount(account)
-            commit('editAccount', { account: response.data})
+            commit('editAccount', { account: response.data })
+        },
+        deleteAccount: async ({commit}, {account}) => {
+            let response = await accountService.deleteAccount(account.id)
+            commit('deleteAccount', { account })
         }
-
-
     },
     getters: {
     }

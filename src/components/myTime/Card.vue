@@ -14,7 +14,7 @@
                 <button 
                     class="btn btn-danger btn-sm mr-1" 
                     title="Deletar"
-                    @click="$emit('delete', account)"
+                    @click="$emit('delet', account)"
                     >
                         <i class="fa fa-trash"></i>
                 </button>

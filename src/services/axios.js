@@ -37,7 +37,7 @@ export default {
     putAccount (account) {
         return apiClient.put(`/accounts/${account.id}`, account)
     },
-    deletAaccount (id) {
+    deleteAccount (id) {
         return apiClient.delete(`/accounts/${id}`)
     }
 }

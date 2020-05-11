@@ -1,19 +1,9 @@
 {
   "tarefas": [
     {
-      "id": 1,
-      "titulo": "Aprender Vuegg",
-      "concluido": false
-    },
-    {
       "id": 3,
       "titulo": "Aprender Vuex amanha de novo teset",
       "concluido": true
-    },
-    {
-      "titulo": "2uma outra teste",
-      "concluido": true,
-      "id": 5
     }
   ],
   "accounts": [
@@ -43,27 +33,6 @@
       "favorite": true,
       "color": "#5d6",
       "modification_time": "2020-04-30 15:25:24"
-    },
-    {
-      "name": "Ana",
-      "currency": "EUR",
-      "balance": "123",
-      "favorite": "",
-      "id": 4
-    },
-    {
-      "name": "e3e3e3",
-      "currency": "GBP",
-      "balance": "33233",
-      "favorite": true,
-      "id": 5
-    },
-    {
-      "name": "wwdwd",
-      "currency": "BRL",
-      "balance": "2222",
-      "favorite": "",
-      "id": 6
     }
   ]
 }
